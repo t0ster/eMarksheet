@@ -2,10 +2,11 @@
 Ti.include 'init.js'
 
 Chester._('app').container = new AppContainer()
+default_tab = Chester._('app').container.default_tab
 
-# Proccess StudiesController on startup
+# Proccess default tab Controller on startup
 Chester._('app').run({
-  controller: 'StudiesController',
+  controller: "#{ default_tab.title }Controller",
   action: '_index',
   params: { start: 1 }
 })

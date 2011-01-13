@@ -35,7 +35,7 @@ class View extends Base
   render: ->
     print "Not Implemented"
 
-Chester: new Base()
+Chester = new Base()
 Chester.View = View
 Chester.Controller = Controller
 

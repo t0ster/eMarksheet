@@ -24,9 +24,16 @@ class AppContainer
 
     @w.addTab(@studies_tab)
     @w.addTab(@students_tab)
+    @default_tab = @studies_tab
 
+    # Run SomeController.index every time some controller gets focus
     @w.addEventListener('focus', (e) =>
-      Ti.API.debug('Clicked on ' + e.tab.title)
+      Ti.API.debug("Clicked on #{ e.tab.title }")
+      Chester._('app').run({
+        controller: "#{ e.tab.title }Controller",
+        action: '_index',
+        params: { start: 1 }
+      })
     )
 
 root = exports ? this

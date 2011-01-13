@@ -11,7 +11,7 @@ class Semestr
     Ti.API.info 'Opened Database!'
 
   _all: ->
-    @semestrs: []
+    @semestrs = []
     # Get All Records
     rows = @db.execute('SELECT * FROM "subject"')
     @p_add_to_semestrs(rows) while (rows.isValidRow())
