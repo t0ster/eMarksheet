@@ -6,7 +6,7 @@ default_tab = Chester._('app').container.default_tab
 
 # Proccess default tab Controller on startup
 Chester._('app').run({
-  controller: "#{ default_tab.title }Controller",
+  controller: "#{ default_tab.id }Controller",
   action: '_index',
   params: { start: 1 }
 })

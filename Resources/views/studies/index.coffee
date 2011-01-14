@@ -1,18 +1,25 @@
 class StudiesIndex extends Chester.View
   render: (options) ->
     Ti.API.debug('In views.studies.index.StudiesIndex.render')
-    tab = @parent.parent.container.studies_tab
+    @tab = @parent.parent.container.studies_tab
 
-    mock = Titanium.UI.createLabel({
-      color: '#999',
-      text: 'I am Studies Window',
-      font: {fontSize: 20,fontFamily: 'Helvetica Neue'},
-      textAlign: 'center',
-      width: 'auto'
+    table_view = Ti.UI.createTableView({
+      data: [
+        {title: 'Семестры', hasChild: true, id: 'semestrs'},
+        {title: 'Предметы', hasChild: true, id: 'studies'},
+      ]
     })
 
-    Ti.API.debug("In views.studies.index.StudiesIndex.render:" + tab)
-    tab.window.add(mock)
+    table_view.addEventListener('click', (e) =>
+      @tab.window.remove(table_view)
+      Chester._('app').run({
+        controller: "StudiesController",
+        action: '_' + e.rowData.id,
+      })
+    )
+
+    Ti.API.debug("In views.studies.index.StudiesIndex.render:" + @tab)
+    @tab.window.add(table_view)
 
 Ti.API.debug('In views.studies.index.StudiesIndex.render: registering')
 # Register view to Patients Controller

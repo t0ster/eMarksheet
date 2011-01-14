@@ -13,4 +13,6 @@ Ti.include 'models/subject.js'
 
 # Register Views
 Ti.include 'views/studies/index.js'
+Ti.include 'views/studies/semestrs.js'
+Ti.include 'views/studies/subjects.js'
 Ti.include 'views/students/index.js'

@@ -8,7 +8,8 @@ class AppContainer
     })
     @studies_tab = Titanium.UI.createTab({
         icon: 'KS_nav_views.png',
-        title: 'Studies',
+        title: 'Предметы',
+        id: 'Studies',
         window: @studies_window
     })
 
@@ -18,7 +19,8 @@ class AppContainer
     })
     @students_tab = Titanium.UI.createTab({
         icon: 'KS_nav_views.png',
-        title: 'Students',
+        title: 'Студенты',
+        id: 'Students',
         window: @students_window
     })
 
@@ -30,7 +32,7 @@ class AppContainer
     @w.addEventListener('focus', (e) =>
       Ti.API.debug("Clicked on #{ e.tab.title }")
       Chester._('app').run({
-        controller: "#{ e.tab.title }Controller",
+        controller: "#{ e.tab.id }Controller",
         action: '_index',
         params: { start: 1 }
       })

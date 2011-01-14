@@ -2,18 +2,25 @@ class Semestr
   constructor: (name) ->
     @name = name
     @db = Ti.Database.open('emark')
+    # TODO(t0ster): Better we should use some javascript ORM that
+    #               will handle this automatically
     @db.execute('CREATE TABLE IF NOT EXISTS "semestr" (
                  id INTEGER  PRIMARY KEY AUTOINCREMENT,
                  start_date DATE   NOT NULL,
                  end_date DATE   NOT NULL,
                  starts_from_first_week BOOLEAN   NOT NULL  DEFAULT "1"
                  )')
-    Ti.API.info 'Opened Database!'
+
+    # Load fixtures
+    # TODO(t0ster): Should be extracted to method
+    @db.execute('INSERT INTO "semestr" VALUES(1,"2011-02-01","2011-06-30",1)')
+
+    Ti.API.debug 'Opened Database!'
 
   _all: ->
     @semestrs = []
     # Get All Records
-    rows = @db.execute('SELECT * FROM "subject"')
+    rows = @db.execute('SELECT * FROM "semestr"')
     @p_add_to_semestrs(rows) while (rows.isValidRow())
     rows.close()
     @semestrs
