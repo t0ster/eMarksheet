@@ -11,12 +11,17 @@ class StudiesIndex extends Chester.View
     for obj in options.subjects
       @s_add_row(obj.subject, @subjects_list)
 
-    tab.window.add(table_view)
+    tab.window.remove(@parent.parent.container.current_view)
+    tab.window.add(@subjects_list)
+    @parent.parent.container.current_view = @subjects_list
 
   #
   # Adds Subject item to TableView
   #
   s_add_row: (subject, view) ->
+    Ti.API.debug "subject_id: #{ subject.id }"
+    Ti.API.debug "subject_shortname: #{ subject.shortname }"
+    Ti.API.debug "subject_name: #{ subject.name }"
     view_row = Ti.UI.createTableViewRow {
       title: subject.shortname,
       subject_id: subject.id

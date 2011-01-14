@@ -5,8 +5,9 @@ class Subject
     @db.execute('CREATE TABLE IF NOT EXISTS "subject"
                  (id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
                  semestr_id INTEGER NOT NULL REFERENCES semestr (id)
-                 ON DELETE CASCADE ON UPDATE CASCADE,
-                 name TEXT NOT NULL, shortname TEXT NULL)')
+                   ON DELETE CASCADE ON UPDATE CASCADE,
+                 name TEXT NOT NULL,
+                 shortname TEXT NULL)')
     # Load fixtures
     @db.execute('INSERT INTO "subject" VALUES(1,1,"СТАУ","СТАУ")')
 
@@ -19,16 +20,23 @@ class Subject
 
   _find_by_id: (id) ->
     # Get model record by id
+
   _create: (subject) ->
-    # create Record
+    @db.execute('INSERT INTO "subject" (semestr_id, name) VALUES (1, ?)', subject.name)
+    return {
+      id: @db.lastInsertRowId,
+      semestr_id: 1,
+      name: subject.name,
+      shortname: subject.shortname
+    }
 
   p_add_to_subjects: (rows) ->
     @subjects[@subjects.length] = {
       subject: {
         id: rows.fieldByName('id'),
-        start_date: rows.fieldByName('start_date'),
-        end_date: rows.fieldByName('end_date'),
-        starts_from_first_week: rows.fieldByName('starts_from_first_week')
+        semestr_id: rows.fieldByName('semestr_id'),
+        name: rows.fieldByName('name'),
+        shortname: rows.fieldByName('shortname')
       }
     }
     rows.next()

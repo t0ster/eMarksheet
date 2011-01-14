@@ -10,8 +10,16 @@ class StudiesController extends Chester.Controller
     params.subjects = @parent.Models._('Subject')._all()
     @_('studies_subjects').render params
 
-  _new: (params) ->
-    #TODO NEW VIEW
+  _subject_create: (params) ->
+    params.project = @parent.Models._('Subject')._create params.subject
+    @find('studies_subjects').render params
+    # if params.subject.errors
+    #   @find('studies_subjects').render params
+    # else
+    #   Ti.API.debug 'Add to List'
+    #   @find('subjects').add_subject(params.subject)
+    #   Ti.API.debug 'Render Show'
+    #   @find('show').render params
 
   _create: (params) ->
     #TODO NEW VIEW

@@ -11,7 +11,9 @@ class StudiesIndex extends Chester.View
     for obj in options.semestrs
       @s_add_row(obj.semestr, @semestrs_list)
 
+    tab.window.remove(@parent.parent.container.current_view)
     tab.window.add(@semestrs_list)
+    @parent.parent.container.current_view = @semestrs_list
 
   #
   # Adds Semestr item to TableView
