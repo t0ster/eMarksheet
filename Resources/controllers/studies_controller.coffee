@@ -3,11 +3,11 @@ class StudiesController extends Chester.Controller
     @find('studies_index').render params
 
   _semestrs: (params) ->
-    params.semestrs = @parent.Models._('Semestr')._all()
+    params.semestrs = joli.models.get('semestr').all()
     @_('studies_semestrs').render params
 
   _subjects: (params) ->
-    params.subjects = @parent.Models._('Subject')._all()
+    params.subjects = joli.models.get('subject').all()
     @_('studies_subjects').render params
 
   _subject_new: (params) ->

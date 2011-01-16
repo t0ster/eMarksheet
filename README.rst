@@ -10,6 +10,11 @@ Install following requirements:
 .. _coffee-script: http://jashkenas.github.com/coffee-script/
 .. _chester: https://github.com/twilson63/chester
 
+Run::
+
+    $ git clone git://github.com/t0ster/eMarksheet.git
+    $ cd eMarksheet
+    $ git submodule update --init
 
 Building
 ========

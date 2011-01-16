@@ -1,5 +1,6 @@
 class StudiesIndex extends Chester.View
   render: (options) ->
+    Ti.API.debug "views.studies.subjects:StudiesIndex.render"
     tab = @parent.parent.container.studies_tab
 
     @subjects_list = Ti.UI.createTableView()
@@ -9,7 +10,7 @@ class StudiesIndex extends Chester.View
     }))
 
     for obj in options.subjects
-      @s_add_row(obj.subject, @subjects_list)
+      @s_add_row(obj, @subjects_list)
 
     tab.window.remove(@parent.parent.container.current_view)
     tab.window.add(@subjects_list)

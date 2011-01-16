@@ -9,7 +9,7 @@ class StudiesIndex extends Chester.View
     }))
 
     for obj in options.semestrs
-      @s_add_row(obj.semestr, @semestrs_list)
+      @s_add_row(obj, @semestrs_list)
 
     tab.window.remove(@parent.parent.container.current_view)
     tab.window.add(@semestrs_list)
