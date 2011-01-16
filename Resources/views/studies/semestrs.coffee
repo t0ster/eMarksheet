@@ -1,4 +1,4 @@
-class StudiesIndex extends Chester.View
+class StudiesSemestrsIndex extends Chester.View
   render: (options) ->
     tab = @parent.parent.container.studies_tab
 
@@ -25,4 +25,4 @@ class StudiesIndex extends Chester.View
     }
     view.appendRow(view_row)
 
-Chester._('app')._("StudiesController").add(new StudiesIndex('studies_semestrs'))
+Chester._('app')._("StudiesController").add(new StudiesSemestrsIndex('studies_semestrs'))

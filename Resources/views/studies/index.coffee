@@ -11,7 +11,6 @@ class StudiesIndex extends Chester.View
     })
 
     table_view.addEventListener('click', (e) =>
-      @tab.window.remove(@parent.parent.container.current_view)
       Chester._('app').run({
         controller: "StudiesController",
         action: '_' + e.rowData.id,

@@ -1,6 +1,6 @@
-class StudiesIndex extends Chester.View
+class StudiesSubjectsIndex extends Chester.View
   render: (options) ->
-    Ti.API.debug "views.studies.subjects:StudiesIndex.render"
+    Ti.API.debug "views.studies.subjects:StudiesSubjectsIndex.render"
     tab = @parent.parent.container.studies_tab
 
     @subjects_list = Ti.UI.createTableView()
@@ -18,12 +18,18 @@ class StudiesIndex extends Chester.View
 
     @subjects_list.addEventListener('click', (e) =>
       Ti.API.debug("views.studies.subjects: e.row = " + JSON.stringify(e.row))
+      tab.window.remove(@parent.parent.container.current_view)
       if e.row.subject_id is -1
-        tab.window.remove(@parent.parent.container.current_view)
         @parent.parent.run({
           controller: 'StudiesController',
           action: '_subject_new',
           params: {}
+        })
+      else
+        @parent.parent.run({
+          controller: 'StudiesController',
+          action: '_subject_edit',
+          params: {subject_id: e.row.subject_id}
         })
     )
 
@@ -35,9 +41,9 @@ class StudiesIndex extends Chester.View
     Ti.API.debug "subject_shortname: #{ subject.shortname }"
     Ti.API.debug "subject_name: #{ subject.name }"
     view_row = Ti.UI.createTableViewRow {
-      title: subject.shortname,
+      title: "#{ subject.shortname } (#{ subject.group.name })",
       subject_id: subject.id
     }
     view.appendRow(view_row)
 
-Chester._('app')._("StudiesController").add(new StudiesIndex('studies_subjects'))
+Chester._('app')._("StudiesController").add(new StudiesSubjectsIndex('studies_subjects'))

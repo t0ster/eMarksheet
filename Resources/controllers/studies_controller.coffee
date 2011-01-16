@@ -3,20 +3,25 @@ class StudiesController extends Chester.Controller
     @find('studies_index').render params
 
   _semestrs: (params) ->
-    params.semestrs = joli.models.get('semestr').all()
+    params.semestrs = models.Semestr.all()
     @_('studies_semestrs').render params
 
   _subjects: (params) ->
-    params.subjects = joli.models.get('subject').all()
+    subjects = models.Subject.all()
+    for subject in subjects
+      subject.group = models.Subject.get_group(subject)
+    params.subjects = subjects
     @_('studies_subjects').render params
 
   _subject_new: (params) ->
     Ti.API.debug('In _subject_new controller')
-    @find('studies_subject_new').render params
+    @_('studies_subject_new').render params
 
   _subject_create: (params) ->
-    params.project = @parent.Models._('Subject')._create params.subject
-    @find('studies_subjects').render params
+    Ti.API.debug('In _subject_create controller')
+    subject = models.Subject.newRecord(params.subject)
+    subject.save()
+    @_subjects({})
     # if params.subject.errors
     #   @find('studies_subjects').render params
     # else
@@ -25,8 +30,13 @@ class StudiesController extends Chester.Controller
     #   Ti.API.debug 'Render Show'
     #   @find('show').render params
 
-  _create: (params) ->
-    #TODO NEW VIEW
+  _subject_update: (params) ->
+    joli.connection.execute("UPDATE 'subject' SET name='#{ params.subject.name }', shortname='#{ params.subject.shortname }' WHERE id=#{ params.subject.id }")
+    @_subjects({})
+
+  _subject_edit: (params) ->
+    params.subject = models.Subject.findOneById(params.subject_id)
+    @find('studies_subject_edit').render params
 
 
 # Register Controller to application

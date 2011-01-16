@@ -1,6 +1,5 @@
-class StudiesSubjectNew extends Chester.View
+class StudiesSubjectEdit extends Chester.View
   render:  (options) ->
-    Ti.API.debug('In subject_new view render')
     tab = @parent.parent.container.studies_tab
     tab.window.remove(@parent.parent.container.current_view)
     view = Ti.UI.createView()
@@ -19,7 +18,8 @@ class StudiesSubjectNew extends Chester.View
       top: 35,
       left: 30,
       width: 250,
-      borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
+      borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+      value: options.subject.name,
     })
     view.add(name_field)
 
@@ -37,7 +37,8 @@ class StudiesSubjectNew extends Chester.View
       top: 100,
       left: 30,
       width: 250,
-      borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED
+      borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+      value: options.subject.shortname,
     })
     view.add(shortname_field)
 
@@ -51,17 +52,17 @@ class StudiesSubjectNew extends Chester.View
     view.add(save);
 
     save.addEventListener('click', (e) =>
-      Ti.API.debug('In subject_new view event')
       tab.window.remove(@parent.parent.container.current_view)
       Chester._('app').run({
         controller: "StudiesController",
-        action: '_subject_create',
+        action: '_subject_update',
         params: {
           subject: {
+              id: options.subject.id,
+              group_id: options.subject.group_id,
+              semestr_id: options.subject.semestr_id,
               name: name_field.value,
               shortname: shortname_field.value,
-              group_id: 2,
-              semestr_id: 1,
           }
         }
       })
@@ -71,5 +72,4 @@ class StudiesSubjectNew extends Chester.View
     @parent.parent.container.current_view = view
 
 
-Chester._('app')._("StudiesController").add(new StudiesSubjectNew('studies_subject_new'))
-
+Chester._('app')._("StudiesController").add(new StudiesSubjectEdit('studies_subject_edit'))

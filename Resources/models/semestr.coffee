@@ -1,9 +1,9 @@
-Semestr = new joli.model({
+models.Semestr = new joli.model({
   table: 'semestr',
   columns: {
-    id: 'INTEGER',
-    start_date: 'DATE',
-    end_date: 'DATE',
-    starts_from_first_week: 'BOOLEAN',
+    id: 'INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE',
+    start_date: 'DATE NOT NULL',
+    end_date: 'DATE NOT NULL',
+    starts_from_first_week: 'BOOLEAN NOT NULL  DEFAULT "1"',
   }
 })
