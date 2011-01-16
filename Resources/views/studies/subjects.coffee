@@ -15,6 +15,17 @@ class StudiesIndex extends Chester.View
     tab.window.add(@subjects_list)
     @parent.parent.container.current_view = @subjects_list
 
+    @subjects_list.addEventListener('click', (e) =>
+      Ti.API.debug("views.studies.subjects: e.row = " + JSON.stringify(e.row))
+      if e.row.subject_id is -1
+        tab.window.remove(@parent.parent.container.current_view)
+        @parent.parent.run({
+          controller: 'StudiesController',
+          action: '_subject_new',
+          params: {}
+        })
+    )
+
   #
   # Adds Subject item to TableView
   #
